@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import Avatar from './Avatar';
+import Avatar, {
+  FALLBACK_AVATAR_ALT_TEXT,
+  FALLBACK_AVATAR_URL,
+} from './Avatar';
 
 describe('Avatar', () => {
   it('should render an <img />', () => {
@@ -19,5 +22,10 @@ describe('Avatar', () => {
 
     const img = screen.getByAltText(alt);
     expect(img).toHaveAttribute('src', url);
+  });
+  it('should use a fallback image if no URL passed in', () => {
+    render(<Avatar />);
+    const img = screen.getByAltText(FALLBACK_AVATAR_ALT_TEXT);
+    expect(img).toHaveAttribute('src', FALLBACK_AVATAR_URL);
   });
 });
